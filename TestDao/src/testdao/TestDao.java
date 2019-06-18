@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import Auto.Auto;
 import Auto.MotorizadoExeption;
-import DAO.AutoDAOtxt;
+import DAO.AutoDAOsql;
 import DAO.DAO;
 import DAO.DAOExeption;
 import java.util.Calendar;
