@@ -32,7 +32,7 @@ import javax.swing.JOptionPane;
 public class TestDao {
 
     
-    public static final String URL = "jdbc:mysql://localhost:3306/escuela";
+    public static final String URL = "jdbc:mysql://localhost:3306/universidad";
     public static final String USERNAME = "root";
     public static final String PASSWORD = "1234";
 
@@ -70,14 +70,19 @@ public static Connection getConection() {
             PreparedStatement ps;
             ResultSet res;
 
-            ps = con.prepareStatement("SELECT * FROM persona");
+            ps = con.prepareStatement("SELECT * FROM autos");  //NOMBRE DE TABLA
             res = ps.executeQuery();
 
             //ps PREPARA la solicitud (ENTRE LOS PARENTECIS VA LA ORDER A MYSQL)
             //res envia y recive respuesta de MYSQL con ps.executeQuery()
             
             if (res.next()) {
-                System.out.println(res.getString("nombre"));
+                System.out.println(res.getString("vin"));
+                System.out.println(res.getString("patente"));
+                System.out.println(res.getString("fecha_fab"));
+                System.out.println(res.getString("precio"));
+                System.out.println(res.getString("marca"));
+                System.out.println(res.getString("año"));
             } else {
                 System.out.println("no data");
             }
