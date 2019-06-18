@@ -42,7 +42,8 @@ public class TestDao {
 public static Connection getConection() {
         Connection con = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            //Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             con = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
             System.out.println("Conexion exitosa!");
         } catch (Exception e) {
