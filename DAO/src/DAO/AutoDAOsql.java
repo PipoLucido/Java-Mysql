@@ -96,13 +96,46 @@ public class AutoDAOsql extends DAO<Auto, String> {
     }
 
     @Override
-    public void modificar(Auto entidad) throws DAOExeption {
+    public void modificar(Auto entidad,String keyVin) throws DAOExeption {
         
+            Connection con = null;
+        
+        try {
+            
+            con = getConection(URL,USERNAME,PASSWORD);
+            
+            PreparedStatement ps;
+            
+            //  NO TENEMOS PRECIO EN LA ENTIDAD | TAMPOCO GET AÑO
+           
+            ps = con.prepareStatement("UPDATE autos SET PATENTE=\"1111\" WHERE VIN=\""+keyVin+"\"");  //ORDEN A MYSQL
+
+            ps.execute();    //EJECUTAR ORDER
+
+            con.close();
+            } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     @Override
-    public void eliminar(String vin) throws DAOExeption {
+    public void eliminar(String vinKey) throws DAOExeption {
+        Connection con = null;
         
+        try {
+            
+            con = getConection(URL,USERNAME,PASSWORD);
+            
+            PreparedStatement ps;
+           
+            ps = con.prepareStatement("DELETE from autos WHERE VIN=\""+vinKey+"\" ");  //ORDEN A MYSQL
+
+            ps.execute();    //EJECUTAR ORDER
+
+            con.close();
+            } catch (Exception e) {
+            System.out.println(e);
+        }
       
     }
 

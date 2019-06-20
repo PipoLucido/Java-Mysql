@@ -16,7 +16,7 @@ import java.util.List;
 public abstract class DAO<T,K>/*datosGenericos entre <datoGnerico>*/ {
     
     public abstract void insertar(T entidad) throws DAOExeption;
-    public abstract void modificar(T entidad) throws DAOExeption;
+    public abstract void modificar(T entidad,K clave) throws DAOExeption;
     public abstract void eliminar(K clave) throws DAOExeption; /*elimina objeto de la clave*/
     public abstract T buscar(K clave) throws DAOExeption; /*buscar objeto clave*/
     public abstract List<T> listar() throws DAOExeption;/*busca todo devuelve una lista de T*/
