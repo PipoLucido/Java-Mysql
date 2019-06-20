@@ -10,6 +10,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,99 +24,86 @@ import java.util.logging.Logger;
  */
 public class AutoDAOsql extends DAO<Auto, String> {
 
-    private RandomAccessFile raf;
-
-    public AutoDAOsql(String path) throws DAOExeption {
-        File file = new File(path);
+    
+   public static Connection getConection(String URL,String USERNAME,String PASSWORD) {
+        Connection con = null;
         try {
-            raf = new RandomAccessFile(file, "rws");  //sincronisa S
-        } catch (FileNotFoundException ex) {
-            throw new DAOExeption("El archivo no existe! //==> " + ex);
+            //Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            System.out.println("Conexion exitosa!");
+        } catch (Exception e) {
+            System.out.println(e);
         }
+        return con;
     }
 
+    public AutoDAOsql(String URL,String USERNAME,String PASSWORD) throws DAOExeption {
+        
+      setUrl(URL);
+      setUsername(USERNAME);
+      setPassword(PASSWORD);
+ 
+    }
+
+    
+     String URL ;
+     String USERNAME ;
+     String PASSWORD;
+    
+    
+        public final void setUrl(String url) throws DAOExeption {
+        
+         this.URL = url;
+        
+        }
+        
+        public final void setUsername(String user) throws DAOExeption {
+        
+         this.USERNAME = user;
+        
+        }
+        
+        public final void setPassword(String pass) throws DAOExeption {
+        
+         this.PASSWORD = pass;
+        
+        }
+    
+    
     @Override
     public void insertar(Auto entidad) throws DAOExeption {
+        
+            Connection con = null;
+        
         try {
-            // se posiciona al final del archivo
-            raf.seek(raf.length());
-            raf.writeBytes(entidad.getVin() + "  " + entidad.getMarca() + "  " + entidad.getModelo() + "  " + entidad.getFechaFab() + " NUEVO\n");
-            raf.close();
-        } catch (IOException ex) {
-            Logger.getLogger(AutoDAOsql.class.getName()).log(Level.SEVERE, null, ex);
+            
+            con = getConection(URL,USERNAME,PASSWORD);
+            
+            PreparedStatement ps;
+            
+            //  NO TENEMOS PRECIO EN LA ENTIDAD | TAMPOCO GET AÑO
+           
+            ps = con.prepareStatement("INSERT INTO autos VALUES (\""+entidad.getVin()+"\", \""+entidad.getPatente()+"\",'"+entidad.getFechaFab()+"',4666,'"+entidad.getMarca()+"', 1996)");  //ORDEN A MYSQL
+
+            ps.execute();
+
+            con.close();
+            } catch (Exception e) {
+            System.out.println(e);
         }
+                  
     }
 
     @Override
     public void modificar(Auto entidad) throws DAOExeption {
-        try {
-            // busca la entidad
-            String vin; // Almacena el contenido del txt linea por linea
-            String campos[];
-            String linea;
-            int seekaux = 0;
-
-            raf.seek(seekaux);
-            while ((linea = raf.readLine()) != null) {
-                if (linea.length() > 16) {
-                    vin = linea.substring(0, 17);
-
-                    if (vin.equals(entidad.getVin())) {
-
-                        if (raf.getFilePointer() != (int) raf.length()) {
-                            raf.seek(raf.getFilePointer() - linea.length() - 1); //SE POSISIONA AL INICIO Y REESCRIBE LA LINEA, ES DE LONGITUD FIJA ASI QUE NO PISA BYTES QUE NO LE CORRESPONDAN
-                            raf.writeBytes(entidad.getVin() + "  " + entidad.getMarca() + " " + entidad.getModelo() + " " + entidad.getFechaFab() + " MODIF ");
-                        } else {
-                            raf.seek(raf.getFilePointer() - linea.length()); //LO MISMO NOMAS QUE SI ESTA AL FINAL DEL ARCHIVO
-                            raf.writeBytes(entidad.getVin() + "  " + entidad.getMarca() + " " + entidad.getModelo() + " " + entidad.getFechaFab() + " MODIF");
-                        }
-
-                        break;
-                    }
-
-                }
-            }
-            raf.close();
-        } catch (IOException ex) {
-            Logger.getLogger(AutoDAOsql.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
 
     @Override
     public void eliminar(String vin) throws DAOExeption {
         
-        //////
-        try {
-            // busca la entidad
-            String vinLeido; // Almacena el contenido del txt linea por linea
-            String campos[];
-            String linea;
-            int seekaux = 0;
-
-            raf.seek(seekaux);
-            while ((linea = raf.readLine()) != null) {
-                if (linea.length() > 16) {
-                    vinLeido = linea.substring(0, 17);
-                   /* System.out.println(vin);
-                    System.out.println(vinLeido);*/
-                    if (vinLeido.equals(vin)) {
-
-                        raf.seek(raf.getFilePointer() - 7); //SE POSISIONA EN ESTADO Y LO CAMBIA POR ELIMI
-                        raf.writeBytes("ELIMI");
-
-                        break;
-                    }
-
-                }
-            }
-            raf.close();
-        } catch (IOException ex) {
-            Logger.getLogger(AutoDAOsql.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        ////////
-
-        ////////
+      
     }
 
     @Override

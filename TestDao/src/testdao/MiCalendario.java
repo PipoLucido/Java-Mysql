@@ -39,11 +39,11 @@ public class MiCalendario extends GregorianCalendar{
             month = Integer.toString(this.get(Calendar.MONTH));
         }
         
-        
-        return day +
+        //FECHA DEBE TOMAR ESTE FORMATO : '1990-03-24'
+        return  Integer.toString(this.get(Calendar.YEAR))+   
                 "-" +
                 month +
-                "-" +
-                Integer.toString(this.get(Calendar.YEAR));
+                "-" + day;
+                
     }
 }
