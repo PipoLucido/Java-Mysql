@@ -59,8 +59,8 @@ public class TestDao {
         Auto autito;
        
         
-        
-        //ESCRIBE
+        /*
+        //INSERTA
         fechaX = new MiCalendario(10, 3, 2009);
         autito = new Auto("123456G7891234567", "chevy","cheto","4646",fechaX);
         
@@ -69,31 +69,31 @@ public class TestDao {
         } catch (DAOExeption ex) {
             Logger.getLogger(TestDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        */
         
         /*
         //MODIFICA
         fechaX = new MiCalendario(9, 1, 2022);
-        fiat = new Auto("323456G323456G789", "Chevr", "Fuego", "4850", fechaX);
+        autito = new Auto("123456G7891234567", "Chevr", "Fuego", "4850", fechaX);
 
         try {
-            dao.modificar(fiat);
+            dao.modificar(autito,autito.getVin());
         } catch (DAOExeption ex) {
             Logger.getLogger(TestDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         */
         
         //ELIMINA 
-        /*
+        
         
         fechaX = new MiCalendario(12, 8, 2012);
-        fiat = new Auto("3234888323456G789", "Ford#", "model", "4850", fechaX);
+        autito = new Auto("123456G7891234567", "Ford#", "model", "4850", fechaX);
 
         try {
-            dao.eliminar(fiat.getVin());
+            dao.eliminar(autito.getVin());
         } catch (DAOExeption ex) {
             Logger.getLogger(TestDao.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
         
         
     }
