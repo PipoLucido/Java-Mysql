@@ -11,40 +11,21 @@ import java.util.Calendar;
  *
  * @author Rodrigo
  */
-public class Auto extends Motorizado{
+public class Auto extends Motorizado {
     
-     public Auto(){
+    private Double precio;
+    private Integer anio;
+    
+    public Auto() {
         super();
     }
 
-   /* public Auto(String vin, Calendar fechaFab) throws MotorizadoExeption {
-        super(vin, fechaFab);
-        
-    }*/
-     
-     public Auto(String vin, String marca, String modelo, String patente,Calendar fechaFab ) throws MotorizadoExeption
-	{
-            //Auto("123456G7891234567", "fiat","modelo","4646",fechaX);
-		super( vin, marca, modelo, patente,fechaFab );
-		this.marca = marca;
-                this.modelo = modelo;
-                this.patente = patente;
-	}
-
-    
-    
-   
-    
-    private Double precio;
-    
-    private Integer anio;
-
-    
-    
-    
-
-
-
+    public Auto(String vin, String marca, String modelo, String patente, Calendar fechaFab, Integer anio, Double precio) throws MotorizadoExeption {
+        //Auto("123456G7891234567", "fiat","modelo","4646",fechaX);
+        super(vin, marca, modelo, patente, fechaFab);
+        this.precio = precio;
+        this.anio = anio;
+    }
 
     public Double getPrecio() {
         return precio;
@@ -61,6 +42,4 @@ public class Auto extends Motorizado{
     public void setAnio(Integer anio) {
         this.anio = anio;
     }
-    
-   
 }

@@ -12,7 +12,7 @@ import java.util.Calendar;
  * @author Rodrigo
  */
 public class Motorizado {
-    
+
     public final int vin_length = 17;
     private String vin;
     private Calendar fechaFab;
@@ -20,84 +20,68 @@ public class Motorizado {
     protected String modelo;
     protected String patente;
 
-    
-    public Motorizado(){
+    public Motorizado() {
     }
+
     //constructor motorizado
-   /* public Motorizado(String vin,Calendar fechaFab) throws MotorizadoExeption{
+    /* public Motorizado(String vin,Calendar fechaFab) throws MotorizadoExeption{
         setVin(vin);
         setFechaFab(fechaFab);
     }*/
-    public Motorizado(String vin, String marca, String modelo, String patente ,Calendar fechaFab) throws MotorizadoExeption
-	{
-		setVin(vin);
-		this.marca = marca;
-		this.modelo = modelo;
-		this.patente = patente;
-		setFechaFab(fechaFab);
-	}
-    
-
+    public Motorizado(String vin, String marca, String modelo, String patente, Calendar fechaFab) throws MotorizadoExeption {
+        setVin(vin);
+        this.marca = marca;
+        this.modelo = modelo;
+        this.patente = patente;
+        setFechaFab(fechaFab);
+    }
 
     public String getVin() {
         return vin;
     }
 
     public final void setVin(String vin) throws MotorizadoExeption {
-        if(vin == null || vin.trim().isEmpty()){
+        if (vin == null || vin.trim().isEmpty()) {
             throw new MotorizadoExeption("El VIN no puede ser vacio");
             //para lanzar exeption hay que agregar throws
         }
-        
-        if(vin.length() != vin_length){
-            throw new MotorizadoExeption("El VIN debe contener "+vin_length+" caracteres");
+
+        if (vin.length() != vin_length) {
+            throw new MotorizadoExeption("El VIN debe contener " + vin_length + " caracteres");
         }
-            
-        
-        
         this.vin = vin;
     }
 
-    public String getMarca()
-	{
-		return marca;
-	}
+    public String getMarca() {
+        return marca;
+    }
 
-	public void setMarca(String marca)
-	{
-		this.marca = marca;
-	}
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
 
-	public String getModelo()
-	{
-		return modelo;
-	}
+    public String getModelo() {
+        return modelo;
+    }
 
-	public void setModelo(String modelo)
-	{
-		this.modelo = modelo;
-	}
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
 
-	public String getPatente()
-	{
-		return patente;
-	}
+    public String getPatente() {
+        return patente;
+    }
 
-	public void setPatente(String patente)
-	{
-		this.patente = patente;
-	}
+    public void setPatente(String patente) {
+        this.patente = patente;
+    }
 
-	public Calendar getFechaFab()
-	{
-		return fechaFab;
-	}
+    public Calendar getFechaFab() {
+        return fechaFab;
+    }
 
-	public final void setFechaFab(Calendar fechaFab)
-	{
-		this.fechaFab = fechaFab;
-	}
+    public final void setFechaFab(Calendar fechaFab) {
+        this.fechaFab = fechaFab;
+    }
 
-
-    
 }

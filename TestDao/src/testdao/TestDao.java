@@ -23,14 +23,7 @@ import javax.swing.JOptionPane;
  *
  * @author Rodrigo
  */
-
-
-
-
-
-
 public class TestDao {
-
 
     /**
      * @param args the command line arguments
@@ -38,64 +31,58 @@ public class TestDao {
      * @throws testdao.MiCalendarioException
      */
     public static void main(String[] args) throws MotorizadoExeption, MiCalendarioException {
-        
-        
+
         String URL = "jdbc:mysql://localhost:3306/universidad";
         String USERNAME = "root";
         String PASSWORD = "1234";
-        
+
         DAO dao;
-         try {
-            
-            dao = new AutoDAOsql(URL,USERNAME,PASSWORD);
-            
+        try {
+            dao = new AutoDAOsql(URL, USERNAME, PASSWORD);
         } catch (DAOExeption ex) {
             Logger.getLogger(TestDao.class.getName()).log(Level.SEVERE, null, ex);
             return;
         }
-        
-        
+
         Calendar fechaX;
-        Auto autito;
-       
-        
-        /*
-        //INSERTA
+        Auto auto;
+
         fechaX = new MiCalendario(10, 3, 2009);
-        autito = new Auto("123456G7891234567", "chevy","cheto","4646",fechaX);
+        auto = new Auto(
+                "323456ZZ891234567", // VIN
+                "Rolo", // Marca
+                "PULENTA", // Modelo
+                "6963", // Patente
+                fechaX, // Fecha de fabricacion
+                2009, // Anio de disenio
+                70000.65); // Precio
         
-        try {
-            dao.insertar(autito);
-        } catch (DAOExeption ex) {
-            Logger.getLogger(TestDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
-        
-        /*
-        //MODIFICA
-        fechaX = new MiCalendario(9, 1, 2022);
-        autito = new Auto("123456G7891234567", "Chevr", "Fuego", "4850", fechaX);
-
-        try {
-            dao.modificar(autito,autito.getVin());
-        } catch (DAOExeption ex) {
-            Logger.getLogger(TestDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
-        
-        //ELIMINA 
-        
-        
-        fechaX = new MiCalendario(12, 8, 2012);
-        autito = new Auto("123456G7891234567", "Ford#", "model", "4850", fechaX);
-
-        try {
-            dao.eliminar(autito.getVin());
-        } catch (DAOExeption ex) {
-            Logger.getLogger(TestDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+        // Insertar(auto, dao);
+        // Modificar(auto, dao);
+        //Eliminar(auto, dao);
     }
-    
+
+    public static void Insertar(Auto auto, DAO dao) {
+        try {
+            dao.insertar(auto);
+        } catch (DAOExeption ex) {
+            Logger.getLogger(TestDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void Modificar(Auto auto, DAO dao) {
+        try {
+            dao.modificar(auto, auto.getVin());
+        } catch (DAOExeption ex) {
+            Logger.getLogger(TestDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void Eliminar(Auto auto, DAO dao) {
+        try {
+            dao.eliminar(auto.getVin());
+        } catch (DAOExeption ex) {
+            Logger.getLogger(TestDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

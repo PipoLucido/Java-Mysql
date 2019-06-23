@@ -84,7 +84,14 @@ public class AutoDAOsql extends DAO<Auto, String> {
             
             //  NO TENEMOS PRECIO EN LA ENTIDAD | TAMPOCO GET AÑO
            
-            ps = con.prepareStatement("INSERT INTO autos VALUES (\""+entidad.getVin()+"\", \""+entidad.getPatente()+"\",'"+entidad.getFechaFab()+"',4666,'"+entidad.getMarca()+"', 1996)");  //ORDEN A MYSQL
+            ps = con.prepareStatement("INSERT INTO autos VALUES (" +
+                    "\"" + entidad.getVin() + "\", " +
+                    "\"" + entidad.getPatente() + "\", " +
+                    "'" + entidad.getFechaFab() + "', " +
+                    "'" + entidad.getPrecio() + "', " +
+                    "'" + entidad.getMarca() + "', " +
+                    "" + entidad.getAnio() + ")");         
+            // ps = con.prepareStatement("INSERT INTO autos VALUES (\""+entidad.getVin()+"\", \""+entidad.getPatente()+"\",'"+entidad.getFechaFab()+"',4666,'"+entidad.getMarca()+"', 1996)");  //ORDEN A MYSQL
 
             ps.execute();
 
@@ -108,7 +115,12 @@ public class AutoDAOsql extends DAO<Auto, String> {
             
             //  NO TENEMOS PRECIO EN LA ENTIDAD | TAMPOCO GET AÑO
            
-            ps = con.prepareStatement("UPDATE autos SET PATENTE=\"1111\" WHERE VIN=\""+keyVin+"\"");  //ORDEN A MYSQL
+            ps = con.prepareStatement("UPDATE autos SET  PATENTE=\""+entidad.getPatente()+
+                    "\", FECHA_FAB='" + entidad.getFechaFab() + 
+                    "', PRECIO='" + entidad.getPrecio() + 
+                    "' , MARCA='" + entidad.getMarca() + 
+                    "', AÑO=" + entidad.getAnio() + 
+                    "   WHERE VIN=\""+keyVin+"\"");  //ORDEN A MYSQL
 
             ps.execute();    //EJECUTAR ORDER
 
