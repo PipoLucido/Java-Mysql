@@ -14,6 +14,7 @@ import Auto.MotorizadoExeption;
 import DAO.AutoDAOsql;
 import DAO.DAO;
 import DAO.DAOExeption;
+import java.sql.Date;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,19 +48,20 @@ public class TestDao {
         Calendar fechaX;
         Auto auto;
 
-        fechaX = new MiCalendario(10, 3, 2009);
+        fechaX = new MiCalendario(10, 5, 2077);
+        
         auto = new Auto(
-                "323456ZZ891234567", // VIN
-                "Rolo", // Marca
+                "343456ZZ891234567", // VIN
+                "Rolon", // Marca
                 "PULENTA", // Modelo
-                "6963", // Patente
+                "9863", // Patente
                 fechaX, // Fecha de fabricacion
-                2009, // Anio de disenio
+                2019, // Anio de disenio
                 70000.65); // Precio
         
-        // Insertar(auto, dao);
-        // Modificar(auto, dao);
-        //Eliminar(auto, dao);
+        //Insertar(auto, dao);
+        //Modificar(auto, dao);
+        Eliminar(auto, dao);
     }
 
     public static void Insertar(Auto auto, DAO dao) {

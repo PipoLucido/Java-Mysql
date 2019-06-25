@@ -28,18 +28,18 @@ public class MiCalendario extends GregorianCalendar{
         String day,month;
         
         if(this.get(Calendar.DAY_OF_MONTH) < 10 ){
-            day = "0"+Integer.toString(this.get(Calendar.DAY_OF_MONTH));
+            day = Integer.toString(this.get(Calendar.DAY_OF_MONTH));
         }else{
             day = Integer.toString(this.get(Calendar.DAY_OF_MONTH));
         }
         
         if(this.get(Calendar.MONTH) < 10 ){
-            month = "0"+Integer.toString(this.get(Calendar.MONTH));
+            month = Integer.toString(this.get(Calendar.MONTH));
         }else{
             month = Integer.toString(this.get(Calendar.MONTH));
         }
         
-        //FECHA DEBE TOMAR ESTE FORMATO : '1990-03-24'
+      
         return  Integer.toString(this.get(Calendar.YEAR))+   
                 "-" +
                 month +

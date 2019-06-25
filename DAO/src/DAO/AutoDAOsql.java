@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,14 +44,14 @@ public class AutoDAOsql extends DAO<Auto, String> {
       setUrl(URL);
       setUsername(USERNAME);
       setPassword(PASSWORD);
- 
+      this.con = getConection(this.URL,this.USERNAME,this.PASSWORD); //CREA LA CONECCION 
     }
 
     
      String URL ;
      String USERNAME ;
      String PASSWORD;
-    
+     Connection con;
     
         public final void setUrl(String url) throws DAOExeption {
         
@@ -73,29 +74,27 @@ public class AutoDAOsql extends DAO<Auto, String> {
     
     @Override
     public void insertar(Auto entidad) throws DAOExeption {
+    
         
-            Connection con = null;
-        
-        try {
-            
-            con = getConection(URL,USERNAME,PASSWORD);
+        try {     
             
             PreparedStatement ps;
             
-            //  NO TENEMOS PRECIO EN LA ENTIDAD | TAMPOCO GET AÑO
+           ps = this.con.prepareStatement("INSERT INTO autos (VIN, PATENTE, FECHA_FAB, PRECIO, MARCA, AÑO) VALUES (?,?,?,?,?,?) ");
            
-            ps = con.prepareStatement("INSERT INTO autos VALUES (" +
-                    "\"" + entidad.getVin() + "\", " +
-                    "\"" + entidad.getPatente() + "\", " +
-                    "'" + entidad.getFechaFab() + "', " +
-                    "'" + entidad.getPrecio() + "', " +
-                    "'" + entidad.getMarca() + "', " +
-                    "" + entidad.getAnio() + ")");         
-            // ps = con.prepareStatement("INSERT INTO autos VALUES (\""+entidad.getVin()+"\", \""+entidad.getPatente()+"\",'"+entidad.getFechaFab()+"',4666,'"+entidad.getMarca()+"', 1996)");  //ORDEN A MYSQL
-
+       
+           
+           ps.setString(1, entidad.getVin());
+           ps.setString(2, entidad.getPatente());
+           ps.setString(3,""+entidad.getFechaFab()+""); 
+           ps.setDouble(4, entidad.getPrecio());
+           ps.setString(5, entidad.getMarca());
+           ps.setInt(6, entidad.getAnio());
+           
+           
             ps.execute();
 
-            con.close();
+           // this.con.close();
             } catch (Exception e) {
             System.out.println(e);
         }
@@ -105,26 +104,30 @@ public class AutoDAOsql extends DAO<Auto, String> {
     @Override
     public void modificar(Auto entidad,String keyVin) throws DAOExeption {
         
-            Connection con = null;
+
         
         try {
             
-            con = getConection(URL,USERNAME,PASSWORD);
+
             
             PreparedStatement ps;
             
             //  NO TENEMOS PRECIO EN LA ENTIDAD | TAMPOCO GET AÑO
            
-            ps = con.prepareStatement("UPDATE autos SET  PATENTE=\""+entidad.getPatente()+
-                    "\", FECHA_FAB='" + entidad.getFechaFab() + 
-                    "', PRECIO='" + entidad.getPrecio() + 
-                    "' , MARCA='" + entidad.getMarca() + 
-                    "', AÑO=" + entidad.getAnio() + 
-                    "   WHERE VIN=\""+keyVin+"\"");  //ORDEN A MYSQL
+            ps = this.con.prepareStatement("UPDATE autos SET  PATENTE=?, FECHA_FAB=?, PRECIO=?, MARCA=?, AÑO=?   WHERE VIN=?");  //ORDEN A MYSQL
 
+          
+           ps.setString(1, entidad.getPatente());
+           ps.setString(2,""+entidad.getFechaFab()+""); 
+           ps.setDouble(3, entidad.getPrecio());
+           ps.setString(4, entidad.getMarca());
+           ps.setInt(5, entidad.getAnio());
+           
+           ps.setString(6, keyVin);
+           
             ps.execute();    //EJECUTAR ORDER
 
-            con.close();
+           // this.con.close();
             } catch (Exception e) {
             System.out.println(e);
         }
@@ -132,19 +135,21 @@ public class AutoDAOsql extends DAO<Auto, String> {
 
     @Override
     public void eliminar(String vinKey) throws DAOExeption {
-        Connection con = null;
+
         
         try {
             
-            con = getConection(URL,USERNAME,PASSWORD);
+
             
             PreparedStatement ps;
            
-            ps = con.prepareStatement("DELETE from autos WHERE VIN=\""+vinKey+"\" ");  //ORDEN A MYSQL
+            ps = this.con.prepareStatement("DELETE from autos WHERE VIN=? ");  //ORDEN A MYSQL
 
+            ps.setString(1,vinKey);
+            
             ps.execute();    //EJECUTAR ORDER
 
-            con.close();
+            //this.con.close();
             } catch (Exception e) {
             System.out.println(e);
         }
