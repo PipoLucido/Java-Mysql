@@ -8,42 +8,32 @@ package testdao;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-/**
- *
- * @author Emili
- */
+/* @author Emili */
 public class MiCalendario extends GregorianCalendar{
-
     public MiCalendario(int d, int m, int a) throws MiCalendarioException
     {
-        super(a, m, d);
-        
+        super(a, --m, d);
         if (this.get(Calendar.DAY_OF_MONTH) != d || this.get(Calendar.MONTH) != m || this.get(Calendar.YEAR) != a)
             throw new MiCalendarioException();
+    }
+
+    public Integer getDay() {
+        return this.get(Calendar.DAY_OF_MONTH);
+    }
+    
+    public Integer getMonth() {
+        return this.get(Calendar.MONTH) + 1;
+    }
+    
+    public Integer getYear() {
+        return this.get(Calendar.YEAR);
     }
     
     @Override
     public String toString() {
-        
-        String day,month;
-        
-        if(this.get(Calendar.DAY_OF_MONTH) < 10 ){
-            day = Integer.toString(this.get(Calendar.DAY_OF_MONTH));
-        }else{
-            day = Integer.toString(this.get(Calendar.DAY_OF_MONTH));
-        }
-        
-        if(this.get(Calendar.MONTH) < 10 ){
-            month = Integer.toString(this.get(Calendar.MONTH));
-        }else{
-            month = Integer.toString(this.get(Calendar.MONTH));
-        }
-        
-      
-        return  Integer.toString(this.get(Calendar.YEAR))+   
-                "-" +
-                month +
-                "-" + day;
-                
+        return
+            this.getDay().toString() + "-" +
+            this.getMonth().toString() + "-" +
+            this.getYear().toString();
     }
 }
