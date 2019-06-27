@@ -7,32 +7,36 @@ package Auto;
 
 import java.util.Calendar;
 
-/**
- *
- * @author Rodrigo
- */
+/* @author Rodrigo */
 public class Motorizado {
 
     public final int vin_length = 17;
+    public final int marca_length = 20;
+    public final int modelo_length = 30;
+    public final int patente_length = 7;
+    
     private String vin;
     private Calendar fechaFab;
-    protected String marca;
-    protected String modelo;
-    protected String patente;
+    private String marca;
+    private String modelo;
+    private String patente;
 
-    public Motorizado() {
+    public Motorizado() {}
+    
+    public Motorizado(String vin) throws MotorizadoExeption {
+        setVin(vin);
     }
 
-    //constructor motorizado
-    /* public Motorizado(String vin,Calendar fechaFab) throws MotorizadoExeption{
+    public Motorizado(String vin, Calendar fechaFab) throws MotorizadoExeption {
         setVin(vin);
         setFechaFab(fechaFab);
-    }*/
+    }
+     // Constructor completo
     public Motorizado(String vin, String marca, String modelo, String patente, Calendar fechaFab) throws MotorizadoExeption {
         setVin(vin);
-        this.marca = marca;
-        this.modelo = modelo;
-        this.patente = patente;
+        setMarca(marca);
+        setModelo(modelo);
+        setPatente(patente);
         setFechaFab(fechaFab);
     }
 
@@ -52,36 +56,41 @@ public class Motorizado {
         this.vin = vin;
     }
 
-    public String getMarca() {
+    public final String getMarca() {
         return marca;
     }
 
-    public void setMarca(String marca) {
+    public final void setMarca(String marca) {
+        if (marca.length() > marca_length)
+            marca = marca.substring(marca_length);
         this.marca = marca;
     }
 
-    public String getModelo() {
+    public final String getModelo() {
         return modelo;
     }
 
-    public void setModelo(String modelo) {
+    public final void setModelo(String modelo) {
+        if (modelo.length() > modelo_length)
+            modelo = modelo.substring(modelo_length);
         this.modelo = modelo;
     }
 
-    public String getPatente() {
+    public final String getPatente() {
         return patente;
     }
 
-    public void setPatente(String patente) {
+    public final void setPatente(String patente) {
+        if (patente.length() > patente_length)
+            patente = patente.substring(patente_length);
         this.patente = patente;
     }
 
-    public Calendar getFechaFab() {
+    public final Calendar getFechaFab() {
         return fechaFab;
     }
 
     public final void setFechaFab(Calendar fechaFab) {
         this.fechaFab = fechaFab;
     }
-
 }

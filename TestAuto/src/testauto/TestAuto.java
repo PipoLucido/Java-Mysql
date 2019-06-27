@@ -36,7 +36,7 @@ public class TestAuto {
         }
         //////////////////////////////////////
         
-       
+       /*
         Auto auto2;
         try {
             
@@ -51,8 +51,7 @@ public class TestAuto {
         System.out.println("Todo OK!\n");
         System.out.println(auto2.getMarca());
         System.out.println(auto2.getModelo());
-        System.out.println(auto2.getPatente());
+        System.out.println(auto2.getPatente());*/
     }
-    
 }
 
