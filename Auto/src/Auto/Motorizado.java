@@ -10,19 +10,20 @@ import java.util.Calendar;
 /* @author Rodrigo */
 public class Motorizado {
 
-    public final int vin_length = 17;
-    public final int marca_length = 20;
-    public final int modelo_length = 30;
-    public final int patente_length = 7;
-    
+    public static final int VIN_LENGTH = 17;
+    public static final int MARCA_LENGTH = 20;
+    public static final int MODELO_LENGTH = 30;
+    public static final int PATENTE_LENGTH = 7;
+
     private String vin;
-    private Calendar fechaFab;
     private String marca;
     private String modelo;
     private String patente;
+    private Calendar fechaFab;
 
-    public Motorizado() {}
-    
+    public Motorizado() {
+    }
+
     public Motorizado(String vin) throws MotorizadoExeption {
         setVin(vin);
     }
@@ -31,7 +32,8 @@ public class Motorizado {
         setVin(vin);
         setFechaFab(fechaFab);
     }
-     // Constructor completo
+
+    // Constructor completo
     public Motorizado(String vin, String marca, String modelo, String patente, Calendar fechaFab) throws MotorizadoExeption {
         setVin(vin);
         setMarca(marca);
@@ -50,8 +52,8 @@ public class Motorizado {
             //para lanzar exeption hay que agregar throws
         }
 
-        if (vin.length() != vin_length) {
-            throw new MotorizadoExeption("El VIN debe contener " + vin_length + " caracteres");
+        if (vin.length() != VIN_LENGTH) {
+            throw new MotorizadoExeption("El VIN debe contener " + VIN_LENGTH + " caracteres");
         }
         this.vin = vin;
     }
@@ -61,8 +63,9 @@ public class Motorizado {
     }
 
     public final void setMarca(String marca) {
-        if (marca.length() > marca_length)
-            marca = marca.substring(marca_length);
+        if (marca.length() > MARCA_LENGTH) {
+            marca = marca.substring(0, MARCA_LENGTH);
+        }
         this.marca = marca;
     }
 
@@ -71,8 +74,9 @@ public class Motorizado {
     }
 
     public final void setModelo(String modelo) {
-        if (modelo.length() > modelo_length)
-            modelo = modelo.substring(modelo_length);
+        if (modelo.length() > MODELO_LENGTH) {
+            modelo = modelo.substring(0, MODELO_LENGTH);
+        }
         this.modelo = modelo;
     }
 
@@ -81,8 +85,9 @@ public class Motorizado {
     }
 
     public final void setPatente(String patente) {
-        if (patente.length() > patente_length)
-            patente = patente.substring(patente_length);
+        if (patente.length() > PATENTE_LENGTH) {
+            patente = patente.substring(0, PATENTE_LENGTH);
+        }
         this.patente = patente;
     }
 

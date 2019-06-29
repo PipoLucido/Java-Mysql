@@ -5,20 +5,14 @@
  */
 package testdao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import Auto.Auto;
 import Auto.MotorizadoExeption;
 import DAO.AutoDAOsql;
+import DAO.AutoDAOtxt;
 import DAO.DAO;
-import DAO.DAOExeption;
-import java.sql.Date;
-import java.util.Calendar;
+import DAO.DAOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,62 +22,61 @@ public class TestDao {
 
     /**
      * @param args the command line arguments
-     * @throws Auto.MotorizadoExeption
-     * @throws testdao.MiCalendarioException
      */
-    public static void main(String[] args) throws MotorizadoExeption, MiCalendarioException {
+    public static void main(String[] args) {
 
-        String URL = "jdbc:mysql://localhost:3306/universidad";
-        String USERNAME = "root";
-        String PASSWORD = "1234";
-
-        DAO dao;
+        /* AUTODAO TXT */
+        /*
         try {
-            dao = new AutoDAOsql(URL, USERNAME, PASSWORD);
-        } catch (DAOExeption ex) {
+            Auto auto;
+            auto = new Auto(
+                    "ee4456ZZ891234567", // VIN
+                    "Mejorrrr", // Marca
+                    "Saludos", // Modelo
+                    "djakf;ldsjafe", // Patente
+                    new MiCalendario(10, 1, 3638)); // Fecha de fabricacion
+
+            AutoDAOtxt pruebatxt;
+            pruebatxt = new AutoDAOtxt("dao.txt");
+
+            pruebatxt.insertar(auto);
+            //pruebatxt.eliminar("034456ZZ891234567");
+            //pruebatxt.modificar(auto, "034456ZZ891234567");
+
+        } catch (MotorizadoExeption ex) {
             Logger.getLogger(TestDao.class.getName()).log(Level.SEVERE, null, ex);
-            return;
-        }
-
-        Calendar fechaX;
-        Auto auto;
-
-        fechaX = new MiCalendario(10, 5, 2077);
-        
-        auto = new Auto(
-                "343456ZZ891234567", // VIN
-                "Rolon", // Marca
-                "PULENTA", // Modelo
-                "9863", // Patente
-                fechaX, // Fecha de fabricacion
-                2019, // Anio de disenio
-                70000.65); // Precio
-        
-        //Insertar(auto, dao);
-        //Modificar(auto, dao);
-        Eliminar(auto, dao);
-    }
-
-    public static void Insertar(Auto auto, DAO dao) {
-        try {
-            dao.insertar(auto);
-        } catch (DAOExeption ex) {
+        } catch (MiCalendarioException ex) {
             Logger.getLogger(TestDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public static void Modificar(Auto auto, DAO dao) {
-        try {
-            dao.modificar(auto, auto.getVin());
-        } catch (DAOExeption ex) {
+        } catch (DAOException ex) {
             Logger.getLogger(TestDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+        }        
+         */
 
-    public static void Eliminar(Auto auto, DAO dao) {
+
+        /* AUTODAO SQL */
         try {
-            dao.eliminar(auto.getVin());
-        } catch (DAOExeption ex) {
+            String URL = "jdbc:mysql://localhost:3306/universidad";
+            String USERNAME = "root";
+            String PASSWORD = "1234";
+
+            DAO daosql = new AutoDAOsql(URL, USERNAME, PASSWORD);
+
+            Auto auto = new Auto(
+                    "343456ZZ891234567", // VIN
+                    "Rolon", // Marca
+                    "PULENTA", // Modelo
+                    "9863", // Patente
+                    new MiCalendario(10, 5, 2077), // Fecha de fabricacion
+                    2019, // Anio de disenio
+                    70000.65); // Precio
+
+            daosql.insertar(auto);
+            //daosql.modificar(auto, auto.getVin());
+            //daosql.eliminar(auto.getVin());
+
+        } catch (MotorizadoExeption | MiCalendarioException ex) {
+            Logger.getLogger(TestDao.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DAOException ex) {
             Logger.getLogger(TestDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

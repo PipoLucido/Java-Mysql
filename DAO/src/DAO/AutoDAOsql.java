@@ -6,23 +6,13 @@
 package DAO;
 
 import Auto.Auto;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- *
- * @author Rodrigo
- */
+/* @author Rodrigo */
 public class AutoDAOsql extends DAO<Auto, String> {
 
     public static Connection getConection(String URL, String USERNAME, String PASSWORD) {
@@ -32,13 +22,13 @@ public class AutoDAOsql extends DAO<Auto, String> {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
             System.out.println("Conexion exitosa!");
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (ClassNotFoundException | SQLException ex) {
+            System.out.println(ex);
         }
         return con;
     }
 
-    public AutoDAOsql(String URL, String USERNAME, String PASSWORD) throws DAOExeption {
+    public AutoDAOsql(String URL, String USERNAME, String PASSWORD) throws DAOException {
 
         setUrl(URL);
         setUsername(USERNAME);
@@ -51,26 +41,26 @@ public class AutoDAOsql extends DAO<Auto, String> {
     String PASSWORD;
     Connection con;
 
-    public final void setUrl(String url) throws DAOExeption {
+    public final void setUrl(String url) throws DAOException {
 
         this.URL = url;
 
     }
 
-    public final void setUsername(String user) throws DAOExeption {
+    public final void setUsername(String user) throws DAOException {
 
         this.USERNAME = user;
 
     }
 
-    public final void setPassword(String pass) throws DAOExeption {
+    public final void setPassword(String pass) throws DAOException {
 
         this.PASSWORD = pass;
 
     }
 
     @Override
-    public void insertar(Auto entidad) throws DAOExeption {
+    public void insertar(Auto entidad) throws DAOException {
 
         try {
 
@@ -88,14 +78,14 @@ public class AutoDAOsql extends DAO<Auto, String> {
             ps.execute();
 
             // this.con.close();
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (SQLException ex) {
+            System.out.println(ex);
         }
 
     }
 
     @Override
-    public void modificar(Auto entidad, String keyVin) throws DAOExeption {
+    public void modificar(Auto entidad, String keyVin) throws DAOException {
 
         try {
 
@@ -112,16 +102,16 @@ public class AutoDAOsql extends DAO<Auto, String> {
 
             ps.setString(6, keyVin);
 
-            ps.execute();    //EJECUTAR ORDER
+            ps.execute(); //EJECUTAR ORDER
 
             // this.con.close();
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (SQLException ex) {
+            System.out.println(ex);
         }
     }
 
     @Override
-    public void eliminar(String vinKey) throws DAOExeption {
+    public void eliminar(String vinKey) throws DAOException {
 
         try {
 
@@ -134,19 +124,19 @@ public class AutoDAOsql extends DAO<Auto, String> {
             ps.execute();    //EJECUTAR ORDER
 
             //this.con.close();
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (SQLException ex) {
+            System.out.println(ex);
         }
 
     }
 
     @Override
-    public Auto buscar(String clave) throws DAOExeption {
+    public Auto buscar(String clave) throws DAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List<Auto> listar() throws DAOExeption {
+    public List<Auto> listar() throws DAOException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
